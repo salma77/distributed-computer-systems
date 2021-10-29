@@ -1,18 +1,15 @@
 ## Steps to run
 
-- Open a terminal and run:
+- Open a terminal and Compile files by running:
 ``` 
 javac Server.java
+javac Client.java
 ```
-then run:
+then open the server by running:
 ```
 java Server
 ```
 - For each client, open a terminal and run:
-```
-javac Client.java
-```
-then run:
 ```
 java Client
 ```
