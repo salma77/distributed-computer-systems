@@ -18,7 +18,6 @@ public class Server {
                 ClientHandler ch = new ClientHandler(s);
                 Thread t = new Thread(ch);
                 t.start();
-
             }
 
             // close the server

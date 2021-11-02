@@ -15,7 +15,7 @@ public class UtilityHandler implements Runnable {
     public void run() {
         try {
             // create I/O streams
-            DataInputStream dis = new DataInputStream(s.getInputStream()); // for
+            DataInputStream dis = new DataInputStream(s.getInputStream());
             DataOutputStream dos = new DataOutputStream(s.getOutputStream());
 
             // IO with client
@@ -30,13 +30,13 @@ public class UtilityHandler implements Runnable {
                 String destination = dis.readUTF();
                 // Perform calculations to get the best route
                 String best_route = getBestRoute(start, destination);
-                dos.writeUTF("The best route would be " + best_route + "\n Start Over? [y/n]?");
+                dos.writeUTF("The best route would be " + best_route + "\n Start Over?[y/n]?");
                 dos.flush();
                 String usr_choice = dis.readUTF();
                 dos.flush();
                 if (usr_choice.equalsIgnoreCase("n")) {
                     dos.writeUTF("bye");
-                    System.out.println("Client disconnected");
+                    System.out.println("Utility Client disconnected");
                     dos.flush();
                     break;
                 }
@@ -51,17 +51,8 @@ public class UtilityHandler implements Runnable {
         }
     }
 
-    public Socket getS() {
-        return s;
-    }
-
-    public void setS(Socket s) {
-        this.s = s;
-    }
-
     public String getBestRoute(String start, String destination) {
         // dummy function for calculating best route
         return "Northeast";
     }
-
 }

@@ -15,29 +15,32 @@ public class ClientHandler implements Runnable {
     public void run() {
         try {
             // create I/O streams
-            DataInputStream dis = new DataInputStream(s.getInputStream()); 
+            DataInputStream dis = new DataInputStream(s.getInputStream());
             DataOutputStream dos = new DataOutputStream(s.getOutputStream());
 
             // IO with client
             while (true) {
                 // request the starting point
-                dos.writeUTF("Please enter the starting point");
+                // dos.writeUTF("Please enter the starting point");
+                // dos.flush();
+                // String start = dis.readUTF();
+                // // request the destination
+                // dos.writeUTF("Please enter the destination");
+                // dos.flush();
+                // String destination = dis.readUTF();
+                // Perform calculations to get the best route
+                // String best_route = getBestRoute(start, destination);
+                // dos.writeUTF("The best route would be " + best_route + "\n Start Over? [y/n]?");
                 dos.flush();
-                String start = dis.readUTF();
-                // request the destination
-                dos.writeUTF("Please enter the destination");
-                dos.flush();
-                String destination = dis.readUTF();
                 String usr_choice = dis.readUTF();
                 dos.flush();
-                if (usr_choice.equalsIgnoreCase("n")) {
+                if (usr_choice.equalsIgnoreCase("bye")) {
                     dos.writeUTF("bye");
                     System.out.println("Client disconnected");
                     dos.flush();
                     break;
                 }
             }
-
             // close connection
             dis.close();
             dos.close();

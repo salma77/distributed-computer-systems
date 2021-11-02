@@ -11,47 +11,44 @@ public class Client {
         // Connecting Client to server
         // and connecting client to the sensors
         try {
+            // create socket to connect to the server
+            Socket client_socket = new Socket("127.0.0.1", 8080);
+            System.out.println("Waiting for connection with utility clients...");
+            
             // Creating a server socket to connect to sensors
             ServerSocket sv = new ServerSocket(8090);
-
-            // accept connection from sensors
-            Socket sensor_socket = sv.accept();
-            // create socket to connect to the server
-            Socket s = new Socket("127.0.0.1", 8080);
-            System.out.println("Connecting to sensors...");
+            
             // Create I/O streams for server
-            DataInputStream dis = new DataInputStream(s.getInputStream());
-            DataOutputStream dos = new DataOutputStream(s.getOutputStream());
+            DataInputStream dis = new DataInputStream(client_socket.getInputStream());
+            DataOutputStream dos = new DataOutputStream(client_socket.getOutputStream());
 
+            
             while (true) {
+                // accept connection from sensors
                 // block until connection
-                Socket s1 = sv.accept();
-                System.out.println("Sensor Connected...");
+                Socket sensor_socket = sv.accept();
+                System.out.println("Utility Client Connected...");
+
                 // open thread for this socket
-                UtilityHandler ch = new UtilityHandler(s);
+                UtilityHandler ch = new UtilityHandler(sensor_socket);
                 Thread t = new Thread(ch);
                 t.start();
 
-                System.out.println("Sensor Connection established...");
-
-                // ask the
-                dos.writeUTF("Do you want to close the connection? (y/n)");
+                // ask the user whether he wants to close
+                dos.writeUTF("Do you want to close the connection? [y/n]");
                 dos.flush();
                 String sensor_msg = dis.readUTF();
+                dos.flush();
                 if (sensor_msg.equals("y")) {
                     System.out.println("Session ended");
                     break;
                 }
-                // take command from usr and send to the server
-                // String usr_msg = sc.next();
-                // dos.writeUTF(usr_msg);
-                // dos.flush();
             }
             // close the connections
             dis.close();
             dos.close();
-            s.close();
-            sensor_socket.close();
+            client_socket.close();
+            // sensor_socket.close();
 
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
