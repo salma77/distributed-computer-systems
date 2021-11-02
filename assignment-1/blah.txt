@@ -1,0 +1,76 @@
+import java.io.*;
+import java.net.*;
+import java.util.*;
+
+public class Client {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        // Connecting Client to server
+        // and connecting client to the sensors
+        try {
+            // Creating a server socket to connect to sensors
+            ServerSocket sv = new ServerSocket(8090);
+
+            System.out.println("Collecting Data from sensors...");
+
+            // accept connection from sensors
+            Socket sensor_socket = sv.accept();
+            // create socket to connect to the server
+            Socket s = new Socket("127.0.0.1", 8080);
+
+            System.out.println("Sensor Connection established...");
+
+            // Create I/O streams for server
+            DataInputStream dis = new DataInputStream(s.getInputStream());
+            DataOutputStream dos = new DataOutputStream(s.getOutputStream());
+            // Defining I/O streams for sensors
+            DataInputStream sensor_dis = new DataInputStream(sensor_socket.getInputStream());
+            DataOutputStream sensor_dos = new DataOutputStream(sensor_socket.getOutputStream());
+
+            // IO with sensors
+            sensor_dos.writeUTF("What's the starting point?");
+            sensor_dos.flush();
+            String start = sensor_dis.readUTF();
+            sensor_dos.writeUTF("What's the destination point?");
+            sensor_dos.flush();
+            String destination = sensor_dis.readUTF();
+            // receive server command & print to user
+            sensor_dos.writeUTF("Calculating the best route....");
+            sensor_dos.flush();
+
+            dos.writeUTF(
+                    "What is the best route for starting point " + start + " and destination " + destination + "?");
+            dos.flush();
+            String best_route = dis.readUTF();
+
+            sensor_dos.writeUTF("The best route is " + best_route);
+            sensor_dos.writeUTF("bye");
+            sensor_dos.flush();
+
+            // ask the
+            // sensor_dos.writeUTF("Do you want to close the connection? (y/n)");
+            // sensor_dos.flush();
+            // String sensor_msg = sensor_dis.readUTF();
+            // if (sensor_msg.equals("y")) {
+            System.out.println("Session ended");
+            // break;
+            // }
+            // take command from usr and send to the server
+            // String usr_msg = sc.next();
+            // dos.writeUTF(usr_msg);
+            // dos.flush();
+
+            // close the connections
+            dis.close();
+            dos.close();
+            s.close();
+            sensor_dis.close();
+            sensor_dos.close();
+            sensor_socket.close();
+
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+}
