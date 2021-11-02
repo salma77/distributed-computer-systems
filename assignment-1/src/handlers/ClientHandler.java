@@ -24,7 +24,7 @@ public class ClientHandler implements Runnable {
                 // dos.writeUTF("Please enter the starting point");
                 // dos.flush();
                 // String start = dis.readUTF();
-                // // request the destination
+                // request the destination
                 // dos.writeUTF("Please enter the destination");
                 // dos.flush();
                 // String destination = dis.readUTF();
@@ -36,7 +36,7 @@ public class ClientHandler implements Runnable {
                 dos.flush();
                 if (usr_choice.equalsIgnoreCase("bye")) {
                     dos.writeUTF("bye");
-                    System.out.println("Client disconnected");
+                    // System.out.println("Client disconnected");
                     dos.flush();
                     break;
                 }

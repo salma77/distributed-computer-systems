@@ -41,7 +41,6 @@ public class UtilityHandler implements Runnable {
                     break;
                 }
             }
-
             // close connection
             dis.close();
             dos.close();

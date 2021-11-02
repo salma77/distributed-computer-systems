@@ -40,7 +40,7 @@ public class Client {
                 String sensor_msg = dis.readUTF();
                 dos.flush();
                 if (sensor_msg.equals("y")) {
-                    System.out.println("Session ended");
+                    System.out.println("yo yo yo");
                     break;
                 }
             }

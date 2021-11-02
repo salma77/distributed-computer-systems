@@ -18,7 +18,7 @@ public class UtilityClient {
                 // receive client command & print to user
                 String client_msg = dis.readUTF();
                 if (client_msg.equals("bye")) {
-                    System.out.println("Session ended");
+                    System.out.println("Session ended, bye");
                     break;
                 }
                 System.out.println(client_msg);
