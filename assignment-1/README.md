@@ -4,6 +4,7 @@
 ``` 
 javac Server.java
 javac Client.java
+javac UtilityClient.java
 ```
 then open the server by running:
 ```
@@ -12,6 +13,10 @@ java Server
 - For each client, open a terminal and run:
 ```
 java Client
+```
+- For each utility client, open a terminal and run:
+```
+java UtilityClient
 ```
 ## Folder Structure
 
